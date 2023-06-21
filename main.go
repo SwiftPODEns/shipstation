@@ -1,4 +1,4 @@
-package shipdis
+package shipstation
 
 import (
 	"encoding/json"
@@ -16,7 +16,7 @@ func CreateOrder(order ShipStationOrder) (response ShipStationOrder, err error) 
 	jsonData, err := json.Marshal(order)
 	message := fmt.Sprintf("at Marshaling Orders\n%+v\n", order)
 	check(err, message)
-	requestPayload := requestdis.RequestPayload{
+	requestPayload := request.RequestPayload{
 		URL:    createEndpoint,
 		Method: http.MethodPost,
 		Headers: http.Header{
@@ -39,7 +39,7 @@ func CreateOrder(order ShipStationOrder) (response ShipStationOrder, err error) 
 func DeleteOrder(orderId int64) (response DeleteResponse, err error) {
 	id := strconv.FormatInt(orderId, 10)
 	uri := fmt.Sprintf("%s/%s", ordersEndpoint, id)
-	requestPayload := requestdis.RequestPayload{
+	requestPayload := request.RequestPayload{
 		URL:    uri,
 		Method: http.MethodDelete,
 		Headers: http.Header{
@@ -63,7 +63,7 @@ func MasrAs(shipstationMarkedItem ShipStationMarkAsShipped) (response Shipstatio
 	id := strconv.FormatInt(shipstationMarkedItem.OrderID, 10)
 	message := fmt.Sprintf("at Marshaling for marked as shipped orderId %s\n", id)
 	check(err, message)
-	requestPayload := requestdis.RequestPayload{
+	requestPayload := request.RequestPayload{
 		URL:    markAsShipped,
 		Method: http.MethodPost,
 		Headers: http.Header{
@@ -92,7 +92,7 @@ func HoldDis(orderId int64, until string) (response ShipstationHoldResponse, err
 	jsonData, err := json.Marshal(shipstationHoldItem)
 	message := fmt.Sprintf("at marshaling holding orderId %s\n", id)
 	check(err, message)
-	requestPayload := requestdis.RequestPayload{
+	requestPayload := request.RequestPayload{
 		URL:    holdEndpoint,
 		Method: http.MethodPost,
 		Headers: http.Header{
@@ -113,7 +113,7 @@ func HoldDis(orderId int64, until string) (response ShipstationHoldResponse, err
 
 func GetOrders(params url.Values) (orders []ShipStationOrder, err error) {
 	var orderList ShipStationOrderList
-	reqPayload := requestdis.RequestPayload{
+	reqPayload := request.RequestPayload{
 		URL:    ordersEndpoint,
 		Method: http.MethodGet,
 		Headers: http.Header{
@@ -140,7 +140,7 @@ func GetOrders(params url.Values) (orders []ShipStationOrder, err error) {
 
 func GetShipments(params url.Values) (shipments []Shipment, err error) {
 	var list ShipmentList
-	reqPayload := requestdis.RequestPayload{
+	reqPayload := request.RequestPayload{
 		URL:    shipmentEndpoint,
 		Method: http.MethodGet,
 		Headers: http.Header{
