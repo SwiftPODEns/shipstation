@@ -67,7 +67,7 @@ type ShipStationOrder struct {
 	PaymentDate      string            `json:"paymentDate,omitempty" bson:"paymentDate,omitempty"`
 	ShipByDate       string            `json:"shipByDate,omitempty" bson:"shipByDate,omitempty"`
 	OrderStatus      string            `json:"orderStatus,omitempty" bson:"orderStatus,omitempty"`
-	CustomerId       string            `json:"customerId,omitempty" bson:"customerId,omitempty"`
+	CustomerId       int            `json:"customerId,omitempty" bson:"customerId,omitempty"`
 	CustomerUsername string            `json:"customerUsername,omitempty" bson:"customerUsername,omitempty"`
 	CustomerEmail    string            `json:"customerEmail,omitempty" bson:"customerEmail,omitempty"`
 	BillTo           *Address          `json:"billTo,omitempty" bson:"billTo,omitempty"`
